@@ -10,10 +10,12 @@ import { MessagingService } from 'service/messaging.service';
 export class AppComponent {
   title = 'push-notification';
   message;
+  token;
   constructor(private messagingService: MessagingService) { }
 ngOnInit() {
   this.messagingService.requestPermission()
   this.messagingService.receiveMessage()
   this.message = this.messagingService.currentMessage
+  this.token=this.messagingService.token;
  }
 }

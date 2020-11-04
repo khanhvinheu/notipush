@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 import { MessagingService } from 'service/messaging.service';
 
 
@@ -11,11 +12,15 @@ export class AppComponent {
   title = 'push-notification';
   message;
   token;
-  constructor(private messagingService: MessagingService) { }
+  constructor(private messagingService: MessagingService,private angularFireMessaging: AngularFireMessaging) {
+    this.angularFireMessaging.requestToken.subscribe(data=>{
+      this.token=data
+    })
+   }
 ngOnInit() {
   this.messagingService.requestPermission()
   this.messagingService.receiveMessage()
-  this.message = this.messagingService.currentMessage
-  this.token=this.messagingService.token;
- }
+  this.message = this.messagingService.currentMessage   
+  
+}
 }
